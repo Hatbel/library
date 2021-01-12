@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "2f671fe6-609e-4fe7-a27e-6451f4ad6bc9",
+		"name": "Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://powerful-citadel-31931.herokuapp.com/api/v1/users?limit={{limit}}&page={{page}}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://powerful-citadel-31931.herokuapp.com/api/v1/users?limit={{limit}}&page={{page}}",
+					"protocol": "https",
+					"host": [
+						"powerful-citadel-31931",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "{{limit}}"
+						},
+						{
+							"key": "page",
+							"value": "{{page}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://powerful-citadel-31931.herokuapp.com/api/v1/users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mail\":\"string\",\"password\":\"string\"}"
+				},
+				"url": {
+					"raw": "https://powerful-citadel-31931.herokuapp.com/api/v1/users",
+					"protocol": "https",
+					"host": [
+						"powerful-citadel-31931",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://powerful-citadel-31931.herokuapp.com/api/v1/users/?id={{id}}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "https://powerful-citadel-31931.herokuapp.com/api/v1/users/?id={{id}}",
+					"protocol": "https",
+					"host": [
+						"powerful-citadel-31931",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://powerful-citadel-31931.herokuapp.com/api/v1/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mail\":\"string\",\"password\":\"string\"}"
+				},
+				"url": {
+					"raw": "https://powerful-citadel-31931.herokuapp.com/api/v1/login",
+					"protocol": "https",
+					"host": [
+						"powerful-citadel-31931",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
