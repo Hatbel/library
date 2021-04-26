@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_allBooks"
+        android:title="@string/all_books"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_availebleBooks"
+        android:title="@string/available_books"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_expiredBooks"
+        android:title="@string/expired_books"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_userReadBooks"
+        android:title="@string/read_books"
+        app:showAsAction="never" />
+</menu>

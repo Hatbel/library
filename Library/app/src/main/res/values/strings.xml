@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Library</string>
+    <string name="register">Register</string>
+    <string name="registration">Registration</string>
+    <string name="e_mail">e-mail</string>
+    <string name="password">password</string>
+    <string name="library_app">LIBRARY APP</string>
+    <string name="login">Login</string>
+    <string name="menu">menu</string>
+    <string name="LoginSuccess">Login Success</string>
+    <string name="RegisterSuccess">Register Success</string>
+    <string name="wrongData">wrong email or password</string>
+    <string name="error">Error Occurred!</string>
+    <string name="reserveBook">You have reserved a book!</string>
+    <string name="returnedBook">You have returned a book!</string>
+    <string name="returnBook">Return</string>
+    <string name="unknownError">Unknown Error</string>
+    <string name="uHaveBook">You already have a book</string>
+    <string name="noReserve">You didn\'t have a reserved book</string>
+    <string name="bookCreated">You added a book</string>
+    <string name="filterCreateBook">create book filter</string>
+    <string name="library">LIBRARY</string>
+    <string name="notReserve"> book was not reserved</string>
+    <string name="notCreated"> book was not created</string>
+    <string name="noEthernet"> ethernet error</string>
+    <string name="notBook"> book was not found</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_books">My Books</string>
+    <string name="all_books">All books</string>
+    <string name="bookname">BookName</string>
+    <string name="bookstatus">BookStatus</string>
+    <string name="bookdeadline">BookDeadLine</string>
+    <string name="reserve">reserve</string>
+    <string name="create_book">Create Book</string>
+    <string name="name_of_a_book">Name of a Book</string>
+    <string name="books">Books</string>
+    <string name="profile">Profile</string>
+    <string name="created_books">Created Books</string>
+    <string name="available_books">Available books</string>
+    <string name="expired_books">Expired books</string>
+    <string name="read_books">Read books</string>
+    <string name="my_profile">MY PROFILE</string>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EditTextStyle">
+        <item name="android:textColor">@color/elemetscolor</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:textColorHint">@android:color/tertiary_text_dark</item>
+        <item name="android:textSize">14sp</item>
+        <item name="colorAccent">@color/elemetscolor</item>
+        <item name="colorControlNormal">@android:color/tertiary_text_dark</item>
+        <item name="colorControlActivated">@color/elemetscolor</item>
+
+    </style>
+    <style name="TextInputEditText">
+        <item name="colorControlNormal">@color/elemetscolor</item>
+        <item name="colorControlActivated">@color/elemetscolor</item>
+        <item name="colorControlHighlight">@color/elemetscolor</item>
+        <item name="android:textColor">@color/elemetscolor</item>
+    </style>
+    <style name="TextViewStyle">
+        <item name="android:textColor">@color/elemetscolor</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="BigText">
+        <item name="android:textColor">@color/elemetscolor</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:letterSpacing">0.2</item>
+        <item name="android:gravity">center</item>
+         <item name="android:textSize">24sp</item>
+    </style>
+    <style name="ButtonStyle">
+        <item name="android:textColor">@drawable/text_color_selector</item>
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="ButtonStyleEmpty">
+        <item name="android:textColor">@color/elemetscolor</item>
+        <item name="android:background">@color/emtycolor</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/noto_sans</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/elemetscolor</item>
+        <item name="colorPrimaryDark">@color/elemetscolor</item>
+        <item name="colorAccent">@color/elemetscolor</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_style</item>
+    </style>
+</resources>

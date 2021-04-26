@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/android_navigation"
+    app:startDestination="@id/fragmentBooks">
+    <fragment
+        android:id="@+id/fragmentBooks"
+        android:name="com.example.library.fragments.mainActivityFragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="com.example.library.fragments.mainActivityFragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/myBooksFragment"
+        android:name="com.example.library.fragments.mainActivityFragments.MyBooksFragment"
+        android:label="fragment_my_books"
+        tools:layout="@layout/fragment_my_books" />
+    <fragment
+        android:id="@+id/showBookFragment"
+        android:name="com.example.library.fragments.mainActivityFragments.ShowBookFragment"
+        android:label="fragment_show_book"
+        tools:layout="@layout/fragment_show_book" />
+    <fragment
+        android:id="@+id/createBookFragment"
+        android:name="com.example.library.fragments.mainActivityFragments.CreateBookFragment"
+        android:label="fragment_create_book"
+        tools:layout="@layout/fragment_create_book">
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="library://app.com/createBook" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownCreatedBooksFragment"
+        android:name="com.example.library.fragments.mainActivityFragments.OwnCreatedBooksFragment"
+        android:label="fragment_own_created_books"
+        tools:layout="@layout/fragment_own_created_books" />
+    <fragment
+        android:id="@+id/addedBookFragment"
+        android:name="com.example.library.fragments.mainActivityFragments.AddedBookFragment"
+        android:label="fragment_added_book"
+        tools:layout="@layout/fragment_added_book" />
+</navigation>
