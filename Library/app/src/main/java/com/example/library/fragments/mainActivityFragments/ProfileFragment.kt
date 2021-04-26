@@ -3,26 +3,22 @@ package com.example.library.fragments.mainActivityFragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.ActivityNavigator
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.library.R
 import com.example.library.activities.StartActivity
+import com.example.library.databinding.FragmentProfileBinding
 import com.example.library.enum.Status
 import com.example.library.viewmodels.userViewModels.ProfileViewModel
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ProfileFragment : Fragment() {
-    private lateinit var myBooksButton: Button
-    private lateinit var createBookButton: Button
-    private lateinit var progressBar: LinearProgressIndicator
-    private lateinit var booksButton: Button
-    private lateinit var email: TextView
+    private lateinit var navController: NavController
 
     private val viewModel by viewModel<ProfileViewModel>()
 
@@ -36,44 +32,27 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val currentView: View = inflater.inflate(R.layout.fragment_profile, container, false)
-        val navController = NavHostFragment.findNavController(this)
+        navController = NavHostFragment.findNavController(this)
+        val binding: FragmentProfileBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
         viewModel.state.observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        progressBar.visibility = View.GONE
-                        booksButton.visibility = View.VISIBLE
-                        myBooksButton.visibility = View.VISIBLE
-                        createBookButton.visibility = View.VISIBLE
-                        email.visibility = View.VISIBLE
-                        email.text = it.data?.mail.toString()
+                        binding.user = it.data
                     }
                     Status.ERROR -> {
-                        progressBar.visibility = View.GONE
                         showError(resources.getString(R.string.unknownError)).show()
                     }
-                    Status.LOADING -> {
-                        progressBar.visibility = View.VISIBLE
-                        booksButton.visibility = View.GONE
-                        myBooksButton.visibility = View.GONE
-                        createBookButton.visibility = View.GONE
-                        email.visibility = View.GONE
-                    }
+                    else -> showError(resources.getString(R.string.unknownError)).show()
                 }
             }
         })
         viewModel.getUser()
-
-        booksButton = currentView.findViewById(R.id.books_profile_button)
-        myBooksButton = currentView.findViewById(R.id.mybooks_profile_button)
-        createBookButton = currentView.findViewById(R.id.create_book_button)
-        progressBar = currentView.findViewById(R.id.progressBar_profile)
-        booksButton.setOnClickListener { navController.navigate(R.id.fragmentBooks) }
-        myBooksButton.setOnClickListener { navController.navigate(R.id.myBooksFragment) }
-        createBookButton.setOnClickListener { navController.navigate(R.id.createBookFragment) }
-        email = currentView.findViewById(R.id.profile_login_textView)
-        return currentView
+        binding.booksProfileButton.setOnClickListener { navController.navigate(R.id.fragmentBooks) }
+        binding.createBookButton.setOnClickListener { navController.navigate(R.id.createBookFragment) }
+        binding.mybooksProfileButton.setOnClickListener { navController.navigate(R.id.myBooksFragment) }
+        return binding.root
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

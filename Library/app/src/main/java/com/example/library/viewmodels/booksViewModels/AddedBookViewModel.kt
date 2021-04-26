@@ -23,12 +23,10 @@ class AddedBookViewModel(
         get() = addedBookStatus
 
     fun returnBook() {
-        addedBookStatus.postValue(Resource.loading())
         viewModelScope.launch {
             try {
                 addedBookStatus.postValue(Resource.success(data = bookApiRepository.returnBookToOwner()))
             } catch (exception: Exception) {
-
                 addedBookStatus.postValue(
                     Resource.error(
                         data = null, message = exception.message ?: stringHelper.getStringFromRes(

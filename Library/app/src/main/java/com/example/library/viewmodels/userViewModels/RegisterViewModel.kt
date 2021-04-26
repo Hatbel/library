@@ -1,5 +1,6 @@
 package com.example.library.viewmodels.userViewModels
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,16 +21,18 @@ class RegisterViewModel(
     private val stringHelper: StringHelper,
     private val userApiRepository: UserRepository
 ) : ViewModel() {
-
+    var email = ""
+    var password = ""
     private val registerStatus = MutableLiveData<Resource<DaoUser>>()
     val state: LiveData<Resource<DaoUser>>
         get() = registerStatus
 
-    fun createUser(email: String, password: String) {
-        registerStatus.postValue(Resource.loading())
+    fun createUser() {
         viewModelScope.launch {
             try {
+                Log.e("asdasdasd", "$email  " + password)
                 if (isValidInput(email, password)) {
+                    Log.e("asdasdasd", "$email  " + password)
                     val user = LoginRegisterModel(email, password)
                     registerStatus.postValue(
                         Resource.success(

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.library.R
 import com.example.library.beans.daoModels.DaoBook
-import com.example.library.beans.serverModels.BooksData
 import com.example.library.modules.StringHelper
 import com.example.library.server.Resource
 import com.example.library.server.repositories.BooksRepository
@@ -22,15 +21,16 @@ class CreateBookViewModel(
     val state: LiveData<Resource<DaoBook>>
         get() = createBookStatus
 
+    var bookName = ""
 
-    fun createBook(name: String) {
+    fun createBook() {
         viewModelScope.launch {
             try {
-                if (isValidInput(name)) {
+                if (isValidInput(bookName)) {
                     createBookStatus.postValue(
                         Resource.success(
                             data = bookApiRepository.createBook(
-                                name
+                                bookName
                             )
                         )
                     )

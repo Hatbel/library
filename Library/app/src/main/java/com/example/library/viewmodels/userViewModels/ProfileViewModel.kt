@@ -26,7 +26,6 @@ class ProfileViewModel(
         get() = profileStatus
 
     fun getUser() {
-        profileStatus.postValue(Resource.loading())
         viewModelScope.launch {
             try {
                 profileStatus.postValue(Resource.success(data = userApiRepository.getUser()))

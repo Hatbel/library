@@ -23,8 +23,10 @@ class LoginViewModel(
     val state: LiveData<Resource<DaoUser>>
         get() = loginStatus
 
-    fun login(email: String, password: String) {
-        loginStatus.postValue(Resource.loading())
+    var email = ""
+    var password = ""
+
+    fun login() {
         viewModelScope.launch {
             try {
                 if (isValidInput(email, password)) {
@@ -51,4 +53,5 @@ class LoginViewModel(
 
     fun isValidInput(email: String, password: String) =
         password.length > MINIMAL_PASSWORD_LENGTH && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
 }

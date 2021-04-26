@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.library.R
 import com.example.library.adapters.BooksAdapter
 import com.example.library.beans.daoModels.DaoBook
+import com.example.library.databinding.FragmentHomeBinding
+import com.example.library.databinding.FragmentOwnCreatedBooksBinding
 import com.example.library.interfaces.CellClickListener
 import com.example.library.server.BookScreenState
 import com.example.library.viewmodels.booksViewModels.OwnCreatedBooksViewModel
@@ -22,7 +25,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class OwnCreatedBooksFragment : Fragment(), CellClickListener {
     private lateinit var adapter: BooksAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var progressBar: LinearProgressIndicator
+    private lateinit var binding: FragmentOwnCreatedBooksBinding
 
     private val viewModel by viewModel<OwnCreatedBooksViewModel>()
 
@@ -30,11 +33,10 @@ class OwnCreatedBooksFragment : Fragment(), CellClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_own_created_books, container, false)
-        recyclerView = view.findViewById<View>(R.id.own_created_books_recyclerView) as RecyclerView
-        progressBar = view.findViewById<View>(R.id.progressBar_ownBooks) as LinearProgressIndicator
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_own_created_books, container, false)
+        recyclerView = binding.ownCreatedBooksRecyclerView
         setupUI()
-        return view
+        return binding.root
     }
 
     private fun setupUI() {
@@ -59,18 +61,10 @@ class OwnCreatedBooksFragment : Fragment(), CellClickListener {
     private fun observeState() {
         viewModel.state.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is BookScreenState.Idle -> {
-                    progressBar.visibility = View.VISIBLE
-                }
-                is BookScreenState.Loading -> {
-                    progressBar.visibility = View.VISIBLE
-                }
                 is BookScreenState.Books -> {
-                    progressBar.visibility = View.GONE
                     adapter.addBooks(it.books as MutableList<DaoBook>)
                 }
                 is BookScreenState.Error -> {
-                    progressBar.visibility = View.GONE
                     showError(resources.getString(R.string.unknownError)).show()
                 }
                 else -> {

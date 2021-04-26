@@ -23,7 +23,6 @@ class ReserveBookViewModel(
         get() = reserveBookStatus
 
     fun reserveBook() {
-        reserveBookStatus.postValue(Resource.loading())
         viewModelScope.launch {
             try {
                 reserveBookStatus.postValue(Resource.success(data = bookApiRepository.reserveBook()))

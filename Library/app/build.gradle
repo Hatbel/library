@@ -36,6 +36,9 @@ android {
         unitTests.includeAndroidResources = true
         unitTests.returnDefaultValues = true
     }
+    buildFeatures {
+        dataBinding true
+    }
 
 }
 
@@ -46,6 +49,7 @@ repositories {
 }
 
 dependencies {
+    apply plugin: 'kotlin-kapt'
     def room_version = "2.2.6"
 
     implementation "androidx.room:room-runtime:$room_version"

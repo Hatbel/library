@@ -23,7 +23,6 @@ class ShowMyBooksViewModel(
 
     private fun getListOfBooks() {
         viewModelScope.launch {
-            _state.value = BookScreenState.Loading
             _state.value = try {
                 val book = bookApiRepository.getUserReadBooks()
                 sessionManager.bookId = book.id

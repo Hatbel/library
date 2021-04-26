@@ -21,7 +21,6 @@ class ReturnBookViewModel(
         get() = returnBookStatus
 
     fun returnBook() {
-        returnBookStatus.postValue(Resource.loading())
         viewModelScope.launch {
             try {
                 returnBookStatus.postValue(Resource.success(data = bookApiRepository.returnBook()))

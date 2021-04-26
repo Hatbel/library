@@ -3,6 +3,7 @@ package com.example.library.fragments.mainActivityFragments
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.library.R
 import com.example.library.adapters.BooksAdapter
 import com.example.library.beans.daoModels.DaoBook
+import com.example.library.databinding.FragmentHomeBinding
+import com.example.library.databinding.FragmentProfileBinding
 import com.example.library.interfaces.CellClickListener
 import com.example.library.server.BookScreenState
 import com.example.library.viewmodels.booksViewModels.BooksViewModel
@@ -22,7 +25,7 @@ class HomeFragment : Fragment(), CellClickListener {
 
     private lateinit var adapter: BooksAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var progressBar: LinearProgressIndicator
+    private lateinit var binding: FragmentHomeBinding
 
     val viewModel by viewModel<BooksViewModel>()
 
@@ -35,10 +38,8 @@ class HomeFragment : Fragment(), CellClickListener {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val currentView: View = inflater.inflate(R.layout.fragment_home, container, false)
-        recyclerView = currentView.findViewById<View>(R.id.recyclerView) as RecyclerView
-        progressBar =
-                currentView.findViewById<View>(R.id.progressBar_homeFragment) as LinearProgressIndicator
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        recyclerView = binding.recyclerView
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(
@@ -52,7 +53,7 @@ class HomeFragment : Fragment(), CellClickListener {
         recyclerView.adapter = adapter
         observeState()
         addScrollerListener()
-        return currentView
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -127,18 +128,10 @@ class HomeFragment : Fragment(), CellClickListener {
     private fun observeState() {
         viewModel.state.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is BookScreenState.Idle -> {
-                    progressBar.visibility = View.VISIBLE
-                }
-                is BookScreenState.Loading -> {
-                    progressBar.visibility = View.VISIBLE
-                }
                 is BookScreenState.Books -> {
-                    progressBar.visibility = View.GONE
                     adapter.addBooks(it.books as MutableList<DaoBook>)
                 }
                 is BookScreenState.Error -> {
-                    progressBar.visibility = View.GONE
                     showError(resources.getString(R.string.unknownError)).show()
                 }
                 else -> {

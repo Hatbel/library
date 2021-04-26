@@ -109,7 +109,6 @@ class BooksViewModel(
 
     fun getUserReadBooks() {
         viewModelScope.launch {
-            _state.value = BookScreenState.Loading
             _state.postValue(
                 try {
                     books = repository.getReadBooks() as MutableList<DaoBook>

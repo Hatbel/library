@@ -3,28 +3,22 @@ package com.example.library.fragments.mainActivityFragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.example.library.R
+import com.example.library.databinding.FragmentShowBookBinding
 import com.example.library.enum.Status
 import com.example.library.server.BookScreenState
-import com.example.library.server.repositories.toyyyymmddString
 import com.example.library.viewmodels.booksViewModels.ReserveBookViewModel
 import com.example.library.viewmodels.booksViewModels.ShowBookViewModel
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ShowBookFragment : Fragment() {
-    private lateinit var bookName: TextView
-    private lateinit var bookStatus: TextView
-    private lateinit var bookDeadLine: TextView
-    private lateinit var reserveButton: Button
-    private lateinit var progressBar: LinearProgressIndicator
+    private lateinit var bookName: String
 
     private val showBookViewModel by viewModel<ShowBookViewModel>()
     private val reserveBookViewModel by viewModel<ReserveBookViewModel>()
@@ -37,7 +31,7 @@ class ShowBookFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, bookName.text)
+            putExtra(Intent.EXTRA_TEXT, bookName)
             type = "text/plain"
         }
 
@@ -54,60 +48,16 @@ class ShowBookFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_show_book, container, false)
-        bookName = view.findViewById(R.id.bookName_showBook_textView)
-        bookStatus = view.findViewById(R.id.status_showBook_textView)
-        bookDeadLine = view.findViewById(R.id.deadLine_showBook_textView)
-        reserveButton = view.findViewById(R.id.reserveBook_Button)
-        progressBar = view.findViewById(R.id.progressBar_showBooks)
-        reserveButton.setOnClickListener {
-            reserveBookViewModel.reserveBook()
-        }
-        observeState()
-        return view
-    }
-
-    private fun observeState() {
-
+        val binding: FragmentShowBookBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_show_book, container, false)
+        binding.reserveBookButton.setOnClickListener { reserveBookViewModel.reserveBook() }
         showBookViewModel.state.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is BookScreenState.HideButton -> {
-                    bookName.visibility = View.VISIBLE
-                    bookStatus.visibility = View.VISIBLE
-                    bookDeadLine.visibility = View.VISIBLE
-                    bookName.text = it.book.name
-                    bookStatus.text = it.book.status
-                    bookDeadLine.text = it.book.dead_line.toyyyymmddString()
-                    reserveButton.visibility = View.GONE
-                    progressBar.visibility = View.GONE
-                }
-                is BookScreenState.HideDeadLine -> {
-                    bookName.visibility = View.VISIBLE
-                    bookStatus.visibility = View.VISIBLE
-                    bookDeadLine.visibility = View.GONE
-                    bookName.text = it.book.name
-                    bookStatus.text = it.book.status
-                    reserveButton.visibility = View.GONE
-                    progressBar.visibility = View.GONE
-                }
-                is BookScreenState.Loading -> {
-                    bookName.visibility = View.GONE
-                    bookStatus.visibility = View.GONE
-                    bookDeadLine.visibility = View.GONE
-                    reserveButton.visibility = View.GONE
-                    progressBar.visibility = View.VISIBLE
-                }
                 is BookScreenState.Book -> {
-                    bookName.visibility = View.VISIBLE
-                    bookStatus.visibility = View.VISIBLE
-                    bookDeadLine.visibility = View.GONE
-                    reserveButton.visibility = View.VISIBLE
-                    progressBar.visibility = View.GONE
-                    bookName.text = it.book.name
-                    bookStatus.text = it.book.status
+                    binding.book = it.book
+                    bookName = it.book.name
                 }
                 is BookScreenState.Error -> {
-                    progressBar.visibility = View.GONE
                     showError(resources.getString(R.string.notBook)).show()
                 }
                 else -> {
@@ -133,6 +83,7 @@ class ShowBookFragment : Fragment() {
                 }
             }
         })
-
+        return binding.root
     }
+
 }

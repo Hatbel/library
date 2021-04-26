@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="books" type="com.example.library.beans.daoModels.DaoBook"/>
+    </data>
+<FrameLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,12 +15,6 @@
         android:id="@+id/own_created_books_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progressBar_ownBooks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:indeterminate="true"
-        android:visibility="gone"/>
 
 </FrameLayout>
+</layout>

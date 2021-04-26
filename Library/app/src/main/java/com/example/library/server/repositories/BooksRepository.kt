@@ -43,8 +43,13 @@ class BooksRepository(
 
     suspend fun getBook(): DaoBook {
         return try {
-            bookApi.getBook(sessionManager.bookId).data.toDaoBook()
+            val book = bookApi.getBook(sessionManager.bookId).data
+            if (book.dead_line.isNullOrBlank()) {
+                book.dead_line = NO_DEADLINE
+            }
+            book.toDaoBook()
         } catch (e: Exception) {
+            Log.e("adfsafsasfasf",e.toString())
             bookDao.getBookById(sessionManager.bookId)
 
         }
@@ -125,7 +130,7 @@ fun BooksData.toDaoBook(): DaoBook =
         name,
         owner_id,
         status,
-        if (dead_line != NO_DEADLINE) dead_line.toDate() else Date(),
+        if (dead_line != NO_DEADLINE)  dead_line.toDate() else Date(),
         reader_user_id
     )
 

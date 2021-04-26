@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.example.library.server.repositories.BooksRepositoryKt"/>
+        <variable name="book" type="com.example.library.beans.daoModels.DaoBook"/>
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +17,8 @@
         android:id="@+id/bookName_showBook_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bookname"
+        android:text="@{book.name}"
+        android:visibility="@{book == null ? View.GONE : View.VISIBLE}"
         app:layout_constraintBottom_toTopOf="@+id/reserveBook_Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +28,8 @@
         android:id="@+id/status_showBook_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bookstatus"
+        android:text="@{book.status}"
+        android:visibility="@{book.name == null ? View.GONE : View.VISIBLE}"
         app:layout_constraintBottom_toTopOf="@+id/reserveBook_Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +39,8 @@
         android:id="@+id/deadLine_showBook_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bookdeadline"
+        android:text="@{book.status.equals(`reserved`) ? BooksRepositoryKt.toyyyymmddString(book.dead_line) : book.dead_line.toString()}"
+        android:visibility="@{book.status.equals(`reserved`) ? View.VISIBLE : View.GONE}"
         app:layout_constraintBottom_toTopOf="@+id/reserveBook_Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +52,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/reserve"
+        android:visibility="@{book.status.equals(`in_library`) ? View.VISIBLE : View.GONE}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +64,8 @@
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:indeterminate="true"
-        android:visibility="gone"
+        android:visibility="@{book.name == null ? View.VISIBLE : View.GONE}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
